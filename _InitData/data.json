@@ -42,7 +42,64 @@
     }
   ],
   "todoLists": [
-    {}
+    {
+      "id": 11,
+      "userId": 1,
+      "name": "Red",
+      "color": "#f00",
+      "bgColor": "#ff8d85",
+      "priority": 10
+    },{
+      "id": 12,
+      "userId": 1,
+      "name": "Blue",
+      "color": "#00b",
+      "bgColor": "##96c3eb",
+      "priority": 6
+    },{
+      "id": 13,
+      "userId": 1,
+      "name": "Yellow",
+      "color": "#d1453b",
+      "bgColor": "#ff0",
+      "priority": 8
+    },{
+      "id": 14,
+      "userId": 1,
+      "name": "Green",
+      "color": "#0f0",
+      "bgColor": "#6accbc",
+      "priority": 4
+    },
+    {
+      "id": 21,
+      "userId": 2,
+      "name": "Red",
+      "color": "#f00",
+      "bgColor": "#ff8d85",
+      "priority": 10
+    },{
+      "id": 22,
+      "userId": 2,
+      "name": "Blue",
+      "color": "#00b",
+      "bgColor": "##96c3eb",
+      "priority": 6
+    },{
+      "id": 23,
+      "userId": 2,
+      "name": "Yellow",
+      "color": "#d1453b",
+      "bgColor": "#ff0",
+      "priority": 8
+    },{
+      "id": 24,
+      "userId": 2,
+      "name": "Green",
+      "color": "#0f0",
+      "bgColor": "#6accbc",
+      "priority": 4
+    },
   ],
   "todos": [
     {}

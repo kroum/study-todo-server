@@ -9,6 +9,7 @@ class UsersService {
             name: user.name,
             username: user.username
         }));
+        this.currentUserId = 100;
     }
 
     async getUserById(userId) {
