@@ -1,0 +1,50 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz",
+      "password": "b59c67bf196a4758191e42f76670ceba",
+      "token": "F1-7bf19-42f7--4"
+    },
+    {
+      "id": 2,
+      "name": "Kurtis Weissnat",
+      "username": "Elwyn.Skiles",
+      "email": "Telly.Hoeger@billy.biz",
+      "password": "934b535800b1cba8f96a5d72f72f1611",
+      "token": "2Fb5358--f96a5-B"
+    },
+    {
+      "id": 3,
+      "name": "Glenna Reichert",
+      "username": "Delphine",
+      "email": "Chaim_McDermott@dana.io",
+      "password": "2be9bd7a3434f7038ca27d1918de58bd",
+      "token": "J3-434f7-f7038c-"
+    },
+    {
+      "id": 4,
+      "name": "Nicholas Runolfsdottir V",
+      "username": "Maxime_Nienow",
+      "email": "Sherwood@rosamond.me",
+      "password": "dbc4d84bfcfe2284ba11beffb853a8c4",
+      "token": "4TeRDfb85384bfcf"
+    },
+    {
+      "id": 5,
+      "name": "Mrs. Dennis Schulist",
+      "username": "Leopoldo_Corkery",
+      "email": "Karley_Dach@jasper.info",
+      "password": "6074c6aa3488f3c2dddff2a7ca821aab",
+      "token": "F5aa3-a821aab918"
+    }
+  ],
+  "todoLists": [
+    {}
+  ],
+  "todos": [
+    {}
+  ]
+}
