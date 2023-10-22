@@ -1,6 +1,66 @@
 import { Router } from "express";
 import authService from "../services/AuthService.js";
+import usersService from "../services/UsersService.js";
+// import
 const router = Router();
+
+/**
+ * @swagger
+ * /auth/me:
+ *   get:
+ *     tags:
+ *       - auth
+ *     summary: Getting current user info
+ *     produces:
+ *       - application/json
+ *     responses:
+ *        200:
+ *          description: "Returns current user info, or null"
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                    description: User ID
+ *                    example: 1
+ *                  email:
+ *                    type: string
+ *                    format: email
+ *                    description: User email
+ *                    example: user1@test.net
+ *                  name:
+ *                    type: string
+ *                    description: User actual name
+ *                    example: Leanne Graham
+ *                  username:
+ *                    type: string
+ *                    description: Username
+ *                    example: Bret
+ */
+router.get("/me", async (req, res) => {
+    const currentToken = req.cookies?.token;
+    if (!currentToken) {
+        res.status(200).json(null);
+        return;
+    }
+
+    const user = await authService.getUserByToken(currentToken);
+    if (!user) {
+        res.cookie('token', "0", { maxAge: -1, httpOnly: true });
+        res.set(200).json(null);
+        return;
+    }
+
+    const userData = await usersService.getUserById(user.id);
+    res.set(200).json({
+        id: userData.id,
+        name: userData.name,
+        username: userData.username,
+        email: userData.email
+    });
+});
 
 /**
  *  @swagger
@@ -21,7 +81,7 @@ const router = Router();
  *              properties:
  *                email:
  *                  type: string
- *                  example: Sincere@april.biz
+ *                  example: user1@test.net
  *                password:
  *                  type: string
  *                  example: 1111
