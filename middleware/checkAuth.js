@@ -7,13 +7,15 @@ export default async (req, res, next) => {
             message: "You must be authorised for executing the functionality"
         });
     }
+    return next()
 }
 
 export async function user(req, res, next) {
     if (!req.cookies.token) {
         req.user = null;
     } else {
-        req.user = await auth.getUserByToken(req.cookies.token);
+        const user = await auth.getUserByToken(req.cookies.token);
+        req.user = user.id;
     }
     return next();
 }
