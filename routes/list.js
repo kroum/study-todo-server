@@ -1,6 +1,5 @@
 import { Router } from "express";
 import todoListsService from "../services/TodoListsService.js";
-import usersService from "../services/UsersService.js";
 import checkAuth, { user } from "../middleware/checkAuth.js";
 // import
 const router = Router();
@@ -208,7 +207,6 @@ router.post("/", checkAuth, user, async (req, res) => {
  *              type: object
  *              properties:
  *                name:
- *                  required: true
  *                  type: string
  *                  example: "new list"
  *                priority:
@@ -250,7 +248,7 @@ router.patch("/:listId", checkAuth, user, async (req, res) => {
         const fieldsAvailable = ["name", "priority", "color", "bgColor"];
         const updateOptions = {};
         Object.entries(req.body).forEach(([field, value]) => {
-            if (fieldsAvailable.includes(field) && (!!value || (field === "priority" && Number.isInteger(value)))) {
+            if (fieldsAvailable.includes(field) && (!!value || (field === "priority" && Number.isInteger(+value)))) {
                updateOptions[field] = value;
                hasOptionToUpdate = true;
             }

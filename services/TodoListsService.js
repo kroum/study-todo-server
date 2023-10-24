@@ -6,7 +6,6 @@ class TodoListService {
     constructor(todoListsData) {
         this.todoLists = [ ...todoListsData ];
         this.generator = idGenerator(100);
-        this.currentListId = this.generator.next().value;
     }
 
     async getUsersTodoListAll(userId, sort = "priority", order = "desc") {
