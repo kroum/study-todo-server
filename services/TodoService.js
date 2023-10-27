@@ -56,6 +56,19 @@ class TodoService {
     Object.assign(todo, fields);
     return todo;
   }
+
+  async deleteTodo(todoId, userId) {
+    const todo = await this.getUserTodo(todoId);
+    if (!todo) {
+      return Promise.reject({ status: 404, message: "You cannot delete the todo"});
+    }
+    if (todo.userId !== userId) {
+      return Promise.reject({status: 403, message: "You cannot delete the todo"});
+    }
+
+    this.todos = this.todos.filter(todo => todo.id !== +todoId);
+    return { id: +todoId }
+  }
 }
 
 export default new TodoService(initDataService.todos);
