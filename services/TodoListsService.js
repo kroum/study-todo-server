@@ -1,6 +1,7 @@
 import initDataService from "./InitDataService.js";
 import makeAsync  from "../helpers/index.js";
 import idGenerator from "../helpers/idGenerator.js";
+import todoService from "./TodoService.js";
 
 class TodoListService {
     constructor(todoListsData) {
@@ -43,6 +44,24 @@ class TodoListService {
         }
         Object.assign(list, fields);
         return list;
+    }
+
+    async deleteTodoList(listId, userId) {
+        const list = await this.getUsersTodoList(listId);
+        if (!list) {
+            return Promise.reject({ status: 404, message: "You cannot delete the list"});
+        }
+        if (list.userId !== userId) {
+            return Promise.reject({status: 403, message: "You cannot delete the list"});
+        }
+
+        const todos = todoService.getUserTodos(userId, listId);
+        if (todos.length) {
+            return Promise.reject({ status: 406, message: "You cannot delete non empty list"});
+        }
+
+        this.todoLists = this.todoLists.filter(list => list.id !== +listId);
+        return {id: listId};
     }
 }
 

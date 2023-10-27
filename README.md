@@ -5,10 +5,12 @@ Difference form public APIs like https://jsonplaceholder.typicode.com/todos is: 
 But its storage is not permanent: all saved data lost after its shutdown / restart
 
 For starting server, at first you should install all necessary packages:
-` npm install `
+
+`$ npm install`
 
 Then you can run it using
-` npm run start `
+
+`$ npm run start`
 
 ## Main features
 After starting the server you'll have 3 main routes: /auth, /list, /todo
@@ -18,8 +20,9 @@ You can review and try all the API methods on http://localhost:4000/docs
 The server suggests authorisation (see methods in /auth). Authorisation sets httpOnly cookie. Non-authorised user cannot use any methods from /todo, or /list
 
 ### Presets
-There are 4 users, and several empty lists for each of user (the presets data is stored at ./_initData/data.json in sources).
-Users are (email / password):
+There are 4 users, and several empty lists for each of user (the presets data is stored at `./_initData/data.json` in sources).
+
+This is the list of users (email / password):
 - user1@test.net / 1111
 - user2@test.net / 2222
 - user3@test.net / 3333
@@ -30,7 +33,7 @@ Users are (email / password):
 The main feature you should use working to server is: "Content-type":"application/json" in request headers
 
 The sample of request using fetch:
-```
+```javascript
 const response = await fetch("/auth/login", {
     method: "POST",
     headers: {

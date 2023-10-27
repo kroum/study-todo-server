@@ -187,7 +187,7 @@ router.post("/", checkAuth, user, async (req, res) => {
  *    patch:
  *      tags:
  *        - "ToDo Lists"
- *      summary: "Updates ToDo list"
+ *      summary: "Updates the ToDo list"
  *      description: |
  *          You can change any of the following fields: <br>
  *          'name', 'priority', 'color', 'bgColor'
@@ -258,6 +258,61 @@ router.patch("/:listId", checkAuth, user, async (req, res) => {
         }
         const listData = await todoListsService.updateTodoList(listId, req.user, updateOptions);
         res.status(200).json(listData);
+    } catch(err) {
+        res.status(err.status || 500).json({message: err.message});
+    }
+});
+
+/**
+ *  @swagger
+ *  /list/{listId}:
+ *    delete:
+ *      tags:
+ *        - "ToDo Lists"
+ *      summary: "Deletes the ToDo list"
+ *      description:
+ *      parameters:
+ *        - in: path
+ *          name: listId
+ *          required: true
+ *          description: "todo list ID"
+ *          schema:
+ *            type: integer
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        200:
+ *          description: "Returns id of the deleted list"
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                - id:
+ *                  type: integer
+ *                  example: 11
+ *        401:
+ *          description: "unauthorised"
+ *        403:
+ *          description: Wrong user
+ *        404:
+ *          description: The list with ID not found
+ *        406:
+ *          description: "Something went wrong"
+ */
+router.delete("/:listId", checkAuth, user, async (req, res) => {
+    try {
+        const listId = !!req.params && req.params.listId;
+        if (!listId) {
+            throw {status: 404, message: "Lost list ID"};
+        }
+
+        if (!Number.isInteger(+listId) || +listId < 1) {
+            throw {status: 406, message: "listId must be the positive integer value"};
+        }
+
+        const deleteResult = await todoListsService.deleteTodoList(+listId, req.user);
+        res.status(200).json(deleteResult);
     } catch(err) {
         res.status(err.status || 500).json({message: err.message});
     }
