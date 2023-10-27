@@ -239,7 +239,7 @@ router.post("/", checkAuth, user, async (req, res) => {
  *        - in: path
  *          name: id
  *          required: true
- *          description: "todo ID"
+ *          description: "the todo ID"
  *          schema:
  *            type: integer
  *      produces:
@@ -287,7 +287,7 @@ router.patch("/:id", checkAuth, user, async (req, res) => {
   try {
     const todoId = !!req.params && req.params.id;
     if (!todoId) {
-      throw {status: 404, message: "Lost list ID"};
+      throw {status: 404, message: "Lost the todo ID"};
     }
 
     if (!Number.isInteger(+todoId) || +todoId < 1) {
@@ -313,4 +313,59 @@ router.patch("/:id", checkAuth, user, async (req, res) => {
   }
 });
 
+/**
+ *  @swagger
+ *  /todo/{id}:
+ *    delete:
+ *      tags:
+ *        - "ToDo"
+ *      summary: "Deletes the ToDo"
+ *      description:
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          description: "the todo ID"
+ *          schema:
+ *            type: integer
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        200:
+ *          description: "Returns id of the deleted ToDo"
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                - id:
+ *                  type: integer
+ *                  example: 500
+ *        401:
+ *          description: "unauthorised"
+ *        403:
+ *          description: Wrong user
+ *        404:
+ *          description: The list with ID not found
+ *        406:
+ *          description: "Something went wrong"
+ */
+router.delete("/:id", checkAuth, user, async (req, res) => {
+  try {
+    const todoId = !!req.params && req.params.id;
+    if (!todoId) {
+      throw {status: 404, message: "Lost the todo ID"};
+    }
+
+    if (!Number.isInteger(+todoId) || +todoId < 1) {
+      throw {status: 406, message: "Id must be the positive integer value"};
+    }
+
+    const deleteResult = await todoService.deleteTodo(+todoId, req.user);
+    res.status(200).json(deleteResult);
+
+  } catch(err) {
+    res.status(err.status || 500).json({message: err.message});
+  }
+});
 export default router;

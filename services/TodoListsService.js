@@ -61,7 +61,7 @@ class TodoListService {
         }
 
         this.todoLists = this.todoLists.filter(list => list.id !== +listId);
-        return {id: listId};
+        return {id: +listId};
     }
 }
 
