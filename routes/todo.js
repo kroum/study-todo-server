@@ -224,6 +224,7 @@ router.post("/", checkAuth, user, async (req, res) => {
     res.status(err.status || 500).json({ message: err.message });
   }
 });
+
 /**
  *  @swagger
  *  /todo/{id}:
@@ -251,7 +252,7 @@ router.post("/", checkAuth, user, async (req, res) => {
  *              properties:
  *                description:
  *                  type: string
- *                  example: "new list"
+ *                  example: "Updated task description"
  *                completed:
  *                  type: boolean,
  *                  example: true
@@ -282,7 +283,6 @@ router.post("/", checkAuth, user, async (req, res) => {
  *        406:
  *          description: "Something went wrong"
  */
-
 router.patch("/:id", checkAuth, user, async (req, res) => {
   try {
     const todoId = !!req.params && req.params.id;
@@ -306,8 +306,8 @@ router.patch("/:id", checkAuth, user, async (req, res) => {
     if (!hasOptionToUpdate) {
       throw {status: 406, message: "There are no fields for update"};
     }
-    const listData = await todoListsService.updateTodoList(listId, req.user, updateOptions);
-    res.status(200).json(listData);
+    const todoData = await todoService.updateTodo(+todoId, req.user, updateOptions);
+    res.status(200).json(todoData);
   } catch(err) {
     res.status(err.status || 500).json({message: err.message});
   }
